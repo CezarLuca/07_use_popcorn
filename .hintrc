@@ -15,7 +15,8 @@
       "default",
       {
         "ignore": [
-          "aspect-ratio"
+          "aspect-ratio",
+          "scrollbar-width"
         ]
       }
     ]
