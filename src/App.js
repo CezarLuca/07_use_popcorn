@@ -50,18 +50,20 @@ export default function App() {
 
     return (
         <>
-            <NavBar movies={movies} />
+            <NavBar>
+                <SearchBar />
+                <SearchResultsCounter movies={movies} />
+            </NavBar>
             <Main movies={movies} />
         </>
     );
 }
 
-function NavBar({ movies }) {
+function NavBar({ children }) {
     return (
         <nav className="nav-bar">
             <Logo />
-            <SearchBar />
-            <SearchResultsCounter movies={movies} />
+            {children}
         </nav>
     );
 }
