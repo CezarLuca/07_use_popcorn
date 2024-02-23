@@ -16,12 +16,38 @@ export default function StarRating({
     maxRating = 5,
     color = "#fcc419",
     size = "1.5rem",
+    clasName = "",
+    messages = [],
 }) {
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
 
     function handleRating(rating) {
         setRating(rating);
+    }
+
+    function handleFullStar(i) {
+        if (hoverRating) {
+            return hoverRating >= i + 1;
+        } else {
+            return rating >= i + 1;
+        }
+    }
+
+    function handleRatingMessage() {
+        if (messages.length === maxRating) {
+            if (hoverRating) {
+                return messages[hoverRating - 1];
+            } else {
+                return messages[rating - 1];
+            }
+        } else if (hoverRating) {
+            return hoverRating;
+        } else if (rating) {
+            return rating;
+        } else {
+            return "";
+        }
     }
 
     const textStyle = {
@@ -33,15 +59,13 @@ export default function StarRating({
     };
 
     return (
-        <div style={containerStyle}>
+        <div style={containerStyle} className={clasName}>
             <div style={starContainerStyle}>
                 {Array.from({ length: maxRating }, (_, i) => (
                     <Star
                         key={i}
                         onRating={() => handleRating(i + 1)}
-                        full={
-                            hoverRating ? hoverRating >= i + 1 : rating >= i + 1
-                        }
+                        full={handleFullStar(i)}
                         onHover={() => setHoverRating(i + 1)}
                         onUnhover={() => setHoverRating(0)}
                         color={color}
@@ -49,19 +73,12 @@ export default function StarRating({
                     />
                 ))}
             </div>
-            <p style={textStyle}>{hoverRating || rating || ""}</p>
+            <p style={textStyle}>{handleRatingMessage()}</p>
         </div>
     );
 }
 
-function Star({
-    onRating,
-    full,
-    onHover,
-    onUnhover,
-    color = "#fcc419",
-    size = "1.5rem",
-}) {
+function Star({ onRating, full, onHover, onUnhover, color, size }) {
     const starStyle = {
         width: `${size}`,
         height: `${size}`,
