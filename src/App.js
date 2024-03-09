@@ -49,6 +49,7 @@ const average = (arr) =>
 export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
+    const [query, setQuery] = useState("interstellar");
 
     // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
     //     .then((res) => res.json())
@@ -56,13 +57,22 @@ export default function App() {
     //     .catch((error) => console.log("Error:", error));
 
     useEffect(() => {
-        fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
-            .then((res) => res.json())
-            .then((data) => setMovies(data.Search))
-            .catch((error) => console.log("Error:", error));
+        async function fetchMovies() {
+            const res = await fetch(
+                `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            );
+            const data = await res.json();
+            setMovies(data.Search);
+            console.log(data.Search);
+        }
+        // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+        //     .then((res) => res.json())
+        //     .then((data) => setMovies(data.Search))
+        //     .catch((error) => console.log("Error:", error));
         // setMovies(tempMovieData);
         setWatched(tempWatchedData);
-    }, []);
+        fetchMovies();
+    }, [query]);
 
     return (
         <>
