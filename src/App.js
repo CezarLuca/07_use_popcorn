@@ -50,10 +50,19 @@ export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
 
-    fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
-        .then((res) => res.json())
-        .then((data) => console.log(data.Search))
-        .catch((error) => console.log("Error:", error));
+    // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data.Search))
+    //     .catch((error) => console.log("Error:", error));
+
+    useEffect(() => {
+        fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+            .then((res) => res.json())
+            .then((data) => setMovies(data.Search))
+            .catch((error) => console.log("Error:", error));
+        // setMovies(tempMovieData);
+        setWatched(tempWatchedData);
+    }, []);
 
     return (
         <>
