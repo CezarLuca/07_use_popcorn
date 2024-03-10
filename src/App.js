@@ -39,24 +39,31 @@ export default function App() {
     const [watched, setWatched] = useState([]);
     const [query, setQuery] = useState("interstellar");
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         async function fetchMovies() {
-            setIsLoading(true);
-            const res = await fetch(
-                `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-            );
-
-            if (!res.ok) {
-                throw new Error(
-                    "Something went wrong with fetching the movies!"
+            try {
+                setIsLoading(true);
+                const res = await fetch(
+                    `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
                 );
-            }
 
-            const data = await res.json();
-            setMovies(data.Search);
-            console.log(data.Search);
-            setIsLoading(false);
+                if (!res.ok) {
+                    throw new Error(
+                        "Something went wrong with fetching the movies!"
+                    );
+                }
+
+                const data = await res.json();
+                setMovies(data.Search);
+                console.log(data.Search);
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error.message);
+                setError(error.message);
+                setIsLoading(false);
+            }
         }
         setWatched(tempWatchedData);
         fetchMovies();
@@ -83,6 +90,17 @@ export default function App() {
 
 function Loader() {
     return <p className="loader">Loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+    return (
+        <>
+            <p className="error">{message}</p>
+            <span role="img" aria-label="error">
+                ❌
+            </span>
+        </>
+    );
 }
 
 function NavBar({ children }) {
