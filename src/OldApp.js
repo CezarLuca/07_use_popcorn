@@ -8,6 +8,18 @@ import KEY from "./KEY";
 //         Year: "2010",
 //         Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
 //     },
+//     {
+//         imdbID: "tt0133093",
+//         Title: "The Matrix",
+//         Year: "1999",
+//         Poster: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+//     },
+//     {
+//         imdbID: "tt6751668",
+//         Title: "Parasite",
+//         Year: "2019",
+//         Poster: "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+//     },
 // ];
 
 const tempWatchedData = [
@@ -40,6 +52,11 @@ export default function App() {
     const [query, setQuery] = useState("interstellar");
     const [isLoading, setIsLoading] = useState(false);
 
+    // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data.Search))
+    //     .catch((error) => console.log("Error:", error));
+
     useEffect(() => {
         async function fetchMovies() {
             setIsLoading(true);
@@ -51,6 +68,11 @@ export default function App() {
             console.log(data.Search);
             setIsLoading(false);
         }
+        // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+        //     .then((res) => res.json())
+        //     .then((data) => setMovies(data.Search))
+        //     .catch((error) => console.log("Error:", error));
+        // setMovies(tempMovieData);
         setWatched(tempWatchedData);
         fetchMovies();
     }, [query]);
@@ -137,6 +159,27 @@ function Box({ children }) {
         </div>
     );
 }
+
+// function WatchedListBox() {
+//     const [watched, setWatched] = useState(tempWatchedData);
+//     const [isOpen2, setIsOpen2] = useState(true);
+//     return (
+//         <div className="box">
+//             <button
+//                 className="btn-toggle"
+//                 onClick={() => setIsOpen2((open) => !open)}
+//             >
+//                 {isOpen2 ? "–" : "+"}
+//             </button>
+//             {isOpen2 && (
+//                 <>
+//                     <Summary watched={watched} />
+//                     <WatchedMoviesList watched={watched} />
+//                 </>
+//             )}
+//         </div>
+//     );
+// }
 
 function MovieList({ movies }) {
     return (
