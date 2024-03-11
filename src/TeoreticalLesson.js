@@ -9,6 +9,9 @@
         - Each time one of the dependencies changes, the effect
         will run again;
         - Every state variable and prop used inside the effect
-        must be included in the dependency array;
+        must be included in the dependency array (otherwise, 
+        we get a "stale closure" bug);
+    - The Mechanics of Effects:
+        - useEffect is like an event listener
 
 */
