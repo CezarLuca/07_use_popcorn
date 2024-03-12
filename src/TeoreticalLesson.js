@@ -1,4 +1,4 @@
-// ---------------------------------------------------------
+// ----------------------------------------------------------------
 /* 9. The useEffect Dependency Array
 
     - The Dependency Array:
@@ -12,6 +12,14 @@
         must be included in the dependency array (otherwise, 
         we get a "stale closure" bug);
     - The Mechanics of Effects:
-        - useEffect is like an event listener
+        - useEffect is like an event listener that is listening
+        for one depencecy to change. Whenvr that dependency 
+        changes, it will run the effect again;
+        - Effects react to updates to state and props used inside
+        the effect (the dependencies). So effects are "reactive" 
+        (like state updates re-rendering the UI);
+    - Synchronization and lifecycle:
+        - We can use the dependency array to run effects when
+        the component renders or re-renders;
 
 */
