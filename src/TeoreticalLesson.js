@@ -21,5 +21,6 @@
     - Synchronization and lifecycle:
         - We can use the dependency array to run effects when
         the component renders or re-renders;
+        
 
 */
