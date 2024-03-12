@@ -37,10 +37,10 @@ const average = (arr) =>
 export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
-    // const [query, setQuery] = useState("interstellar");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const tempQuery = "interstellar";
+    const [query, setQuery] = useState("");
 
     useEffect(() => {
         async function fetchMovies() {
@@ -82,7 +82,7 @@ export default function App() {
     return (
         <>
             <NavBar>
-                <SearchBar />
+                <SearchBar query={query} setQuery={setQuery} />
                 <SearchResultsCounter movies={movies} />
             </NavBar>
             <Main>
@@ -137,8 +137,8 @@ function Logo() {
     );
 }
 
-function SearchBar() {
-    const [query, setQuery] = useState("");
+function SearchBar({ query, setQuery }) {
+    // const [query, setQuery] = useState("");
 
     return (
         <input
