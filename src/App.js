@@ -43,6 +43,16 @@ export default function App() {
     const [query, setQuery] = useState("");
 
     useEffect(() => {
+        console.log("A");
+    }, []);
+
+    useEffect(() => {
+        console.log("B");
+    });
+
+    console.log("C");
+
+    useEffect(() => {
         async function fetchMovies() {
             try {
                 setIsLoading(true);
@@ -64,7 +74,7 @@ export default function App() {
                 }
 
                 setMovies(data.Search);
-                console.log(data.Search);
+                // console.log(data.Search);
                 // setIsLoading(false);
             } catch (error) {
                 console.error(error.message);
