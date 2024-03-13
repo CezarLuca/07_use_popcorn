@@ -39,26 +39,31 @@ export default function App() {
     const [watched, setWatched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-    const tempQuery = "interstellar";
+    // const tempQuery = "interstellar";
     const [query, setQuery] = useState("");
 
-    useEffect(() => {
-        console.log("A");
-    }, []);
+    // useEffect(() => {
+    //     console.log("After the Initial Render");
+    // }, []);
 
-    useEffect(() => {
-        console.log("B");
-    });
+    // useEffect(() => {
+    //     console.log("After Every Render");
+    // });
 
-    console.log("C");
+    // useEffect(() => {
+    //     console.log("D");
+    // }, [query]);
+
+    // console.log("During Render");
 
     useEffect(() => {
         async function fetchMovies() {
             try {
+                setError("");
                 setIsLoading(true);
                 const res = await fetch(
-                    // `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-                    `https://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
+                    `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+                    // `https://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
                 );
 
                 if (!res.ok) {
@@ -84,10 +89,18 @@ export default function App() {
                 setIsLoading(false);
             }
         }
+
+        if (query.length < 2) {
+            setMovies([]);
+            setError("");
+            setIsLoading(false);
+            return;
+        }
+
         setWatched(tempWatchedData);
         fetchMovies();
-        // }, [query]);
-    }, [tempQuery]);
+    }, [query]);
+    // }, [tempQuery]);
 
     return (
         <>
