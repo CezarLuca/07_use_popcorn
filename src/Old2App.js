@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import KEY from "./KEY";
 
+// const tempMovieData = [
+//     {
+//         imdbID: "tt1375666",
+//         Title: "Inception",
+//         Year: "2010",
+//         Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+//     },
+// ];
+
 const tempWatchedData = [
     {
         imdbID: "tt1375666",
@@ -30,7 +39,22 @@ export default function App() {
     const [watched, setWatched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    // const tempQuery = "interstellar";
     const [query, setQuery] = useState("");
+
+    // useEffect(() => {
+    //     console.log("After the Initial Render");
+    // }, []);
+
+    // useEffect(() => {
+    //     console.log("After Every Render");
+    // });
+
+    // useEffect(() => {
+    //     console.log("D");
+    // }, [query]);
+
+    // console.log("During Render");
 
     useEffect(() => {
         async function fetchMovies() {
@@ -39,6 +63,7 @@ export default function App() {
                 setIsLoading(true);
                 const res = await fetch(
                     `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+                    // `https://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
                 );
 
                 if (!res.ok) {
@@ -54,9 +79,12 @@ export default function App() {
                 }
 
                 setMovies(data.Search);
+                // console.log(data.Search);
+                // setIsLoading(false);
             } catch (error) {
                 console.error(error.message);
                 setError(error.message);
+                // setIsLoading(false);
             } finally {
                 setIsLoading(false);
             }
@@ -72,6 +100,7 @@ export default function App() {
         setWatched(tempWatchedData);
         fetchMovies();
     }, [query]);
+    // }, [tempQuery]);
 
     return (
         <>
@@ -81,6 +110,7 @@ export default function App() {
             </NavBar>
             <Main>
                 <Box>
+                    {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
                     {error && <ErrorMessage message={error} />}
                     {isLoading && <Loader />}
                     {!isLoading && !error && <MovieList movies={movies} />}
@@ -131,6 +161,8 @@ function Logo() {
 }
 
 function SearchBar({ query, setQuery }) {
+    // const [query, setQuery] = useState("");
+
     return (
         <input
             className="search"
