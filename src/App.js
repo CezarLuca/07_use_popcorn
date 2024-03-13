@@ -22,8 +22,10 @@ const tempWatchedData = [
     },
 ];
 
-const average = (arr) =>
+const average = (arr) => {
+    if (arr.length === 0) return 0;
     arr.reduce((acc, cur, arr) => acc + cur / arr.length, 0);
+};
 
 export default function App() {
     const [movies, setMovies] = useState([]);
@@ -34,7 +36,13 @@ export default function App() {
     const [selectedMovieId, setSelectedMovieId] = useState(null);
 
     function handleMovieClick(movieId) {
-        setSelectedMovieId(movieId);
+        setSelectedMovieId((selectedMovieId) =>
+            movieId === selectedMovieId ? null : movieId
+        );
+    }
+
+    function handleCloseMovieDetails() {
+        setSelectedMovieId(null);
     }
 
     useEffect(() => {
@@ -87,18 +95,21 @@ export default function App() {
             </NavBar>
             <Main>
                 <Box>
-                    {error && (
-                        <ErrorMessage
-                            message={error}
+                    {error && <ErrorMessage message={error} />}
+                    {isLoading && <Loader />}
+                    {!isLoading && !error && (
+                        <MovieList
+                            movies={movies}
                             onMovieClick={handleMovieClick}
                         />
                     )}
-                    {isLoading && <Loader />}
-                    {!isLoading && !error && <MovieList movies={movies} />}
                 </Box>
                 <Box>
                     {selectedMovieId ? (
-                        <MovieDetails selectedMovieId={selectedMovieId} />
+                        <MovieDetails
+                            selectedMovieId={selectedMovieId}
+                            onCloseMovieDetails={handleCloseMovieDetails}
+                        />
                     ) : (
                         <>
                             <Summary watched={watched} />
@@ -189,7 +200,7 @@ function Box({ children }) {
 
 function MovieList({ movies, onMovieClick }) {
     return (
-        <ul className="list">
+        <ul className="list list-movies">
             {movies?.map((movie) => (
                 <Movie
                     movie={movie}
@@ -216,9 +227,13 @@ function Movie({ movie, onMovieClick }) {
     );
 }
 
-function MovieDetails({ selectedMovieId }) {
+function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
     return (
-        <div>
+        <div className="details">
+            <button className="btn-black" onClick={() => onCloseMovieDetails()}>
+                &larr;
+            </button>
+            {selectedMovieId}
             <h2>{selectedMovieId.Title}</h2>
             <p>
                 <span>🗓</span>
