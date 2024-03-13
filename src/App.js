@@ -33,6 +33,10 @@ export default function App() {
     const [query, setQuery] = useState("");
     const [selectedMovieId, setSelectedMovieId] = useState(null);
 
+    function handleMovieClick(movieId) {
+        setSelectedMovieId(movieId);
+    }
+
     useEffect(() => {
         async function fetchMovies() {
             try {
@@ -83,7 +87,12 @@ export default function App() {
             </NavBar>
             <Main>
                 <Box>
-                    {error && <ErrorMessage message={error} />}
+                    {error && (
+                        <ErrorMessage
+                            message={error}
+                            onMovieClick={handleMovieClick}
+                        />
+                    )}
                     {isLoading && <Loader />}
                     {!isLoading && !error && <MovieList movies={movies} />}
                 </Box>
@@ -178,19 +187,23 @@ function Box({ children }) {
     );
 }
 
-function MovieList({ movies }) {
+function MovieList({ movies, onMovieClick }) {
     return (
         <ul className="list">
             {movies?.map((movie) => (
-                <Movie movie={movie} key={movie.imdbID} />
+                <Movie
+                    movie={movie}
+                    key={movie.imdbID}
+                    onMovieClick={onMovieClick}
+                />
             ))}
         </ul>
     );
 }
 
-function Movie({ movie }) {
+function Movie({ movie, onMovieClick }) {
     return (
-        <li>
+        <li onClick={() => onMovieClick(movie.imdbID)}>
             <img src={movie.Poster} alt={`${movie.Title} poster`} />
             <h3>{movie.Title}</h3>
             <div>
