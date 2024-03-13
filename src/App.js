@@ -23,7 +23,7 @@ const tempWatchedData = [
 ];
 
 const average = (arr) =>
-    arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+    arr.reduce((acc, cur, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
     const [movies, setMovies] = useState([]);
@@ -31,6 +31,7 @@ export default function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
 
     useEffect(() => {
         async function fetchMovies() {
@@ -54,6 +55,7 @@ export default function App() {
                 }
 
                 setMovies(data.Search);
+                console.log(data.Search);
             } catch (error) {
                 console.error(error.message);
                 setError(error.message);
@@ -86,8 +88,14 @@ export default function App() {
                     {!isLoading && !error && <MovieList movies={movies} />}
                 </Box>
                 <Box>
-                    <Summary watched={watched} />
-                    <WatchedMoviesList watched={watched} />
+                    {selectedMovieId ? (
+                        <MovieDetails selectedMovieId={selectedMovieId} />
+                    ) : (
+                        <>
+                            <Summary watched={watched} />
+                            <WatchedMoviesList watched={watched} />
+                        </>
+                    )}
                 </Box>
             </Main>
         </>
@@ -192,6 +200,30 @@ function Movie({ movie }) {
                 </p>
             </div>
         </li>
+    );
+}
+
+function MovieDetails({ selectedMovieId }) {
+    return (
+        <div>
+            <h2>{selectedMovieId.Title}</h2>
+            <p>
+                <span>🗓</span>
+                <span>{selectedMovieId.Year}</span>
+            </p>
+            <p>
+                <span>⏳</span>
+                <span>{selectedMovieId.runtime} min</span>
+            </p>
+            <p>
+                <span>⭐️</span>
+                <span>{selectedMovieId.imdbRating}</span>
+            </p>
+            <p>
+                <span>🌟</span>
+                <span>{selectedMovieId.userRating}</span>
+            </p>
+        </div>
     );
 }
 
