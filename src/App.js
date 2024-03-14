@@ -228,29 +228,66 @@ function Movie({ movie, onMovieClick }) {
 }
 
 function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
+    const [movie, setMovie] = useState({});
+
+    const {
+        Title: title,
+        Year: year,
+        Poster: poster,
+        Runtime: runtime,
+        imdbRating,
+        Plot: plot,
+        Released: released,
+        Actors: actors,
+        Director: director,
+        Genre: genre,
+    } = movie;
+
+    console.log(
+        title,
+        year,
+        poster,
+        runtime,
+        imdbRating,
+        plot,
+        released,
+        actors,
+        director,
+        genre
+    );
+
+    useEffect(function () {
+        async function getMovieDetails() {
+            const res = await fetch(
+                `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`
+            );
+            const data = await res.json();
+            console.log(data);
+        }
+        getMovieDetails();
+    }, []);
     return (
         <div className="details">
-            <button className="btn-black" onClick={() => onCloseMovieDetails()}>
-                &larr;
-            </button>
+            <header>
+                <button
+                    className="btn-black"
+                    onClick={() => onCloseMovieDetails()}
+                >
+                    &larr;
+                </button>
+                <img src={poster} alt={`${title} poster`} />
+                <div className="details-overview">
+                    <h2>{title}</h2>
+                    <p>
+                        {released} &bull; {runtime} &bull; {genre}
+                    </p>
+                    <p>
+                        <span>🗓</span>
+                        <span>{year}</span>
+                    </p>
+                </div>
+            </header>
             {selectedMovieId}
-            <h2>{selectedMovieId.Title}</h2>
-            <p>
-                <span>🗓</span>
-                <span>{selectedMovieId.Year}</span>
-            </p>
-            <p>
-                <span>⏳</span>
-                <span>{selectedMovieId.runtime} min</span>
-            </p>
-            <p>
-                <span>⭐️</span>
-                <span>{selectedMovieId.imdbRating}</span>
-            </p>
-            <p>
-                <span>🌟</span>
-                <span>{selectedMovieId.userRating}</span>
-            </p>
         </div>
     );
 }
