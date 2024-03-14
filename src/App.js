@@ -46,6 +46,10 @@ export default function App() {
         setSelectedMovieId(null);
     }
 
+    function handleAddToWatched(movie) {
+        setWatched((watched) => [...watched, movie]);
+    }
+
     useEffect(() => {
         async function fetchMovies() {
             try {
@@ -110,6 +114,7 @@ export default function App() {
                         <MovieDetails
                             selectedMovieId={selectedMovieId}
                             onCloseMovieDetails={handleCloseMovieDetails}
+                            onAddToWatched={handleAddToWatched}
                         />
                     ) : (
                         <>
@@ -233,7 +238,11 @@ function Movie({ movie, onMovieClick }) {
     );
 }
 
-function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
+function MovieDetails({
+    selectedMovieId,
+    onCloseMovieDetails,
+    onAddToWatched,
+}) {
     const [movie, setMovie] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -263,6 +272,19 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
         genre
     );
 
+    function handleAddToWatched() {
+        const newWatchedMovie = {
+            imdbID: selectedMovieId,
+            title,
+            year,
+            poster,
+            imdbRating: Number(imdbRating),
+            runtime: Number(runtime.split(" ").at(0)),
+        };
+
+        onAddToWatched(newWatchedMovie);
+    }
+
     useEffect(
         function () {
             async function getMovieDetails() {
@@ -287,7 +309,7 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
                 <>
                     <header>
                         <button
-                            className="btn-black"
+                            className="btn-back"
                             onClick={() => onCloseMovieDetails()}
                         >
                             &larr;
@@ -309,6 +331,12 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
 
                     <section>
                         <StarRating maxRating={10} size={"24px"} />
+                        <button
+                            className="btn-add"
+                            onClick={handleAddToWatched}
+                        >
+                            + Add to list
+                        </button>
                         <p>
                             <em>{plot}</em>
                         </p>
