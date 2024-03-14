@@ -279,15 +279,28 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
                 <div className="details-overview">
                     <h2>{title}</h2>
                     <p>
-                        {released} &bull; {runtime} &bull; {genre}
-                    </p>
-                    <p>
                         <span>🗓</span>
-                        <span>{year}</span>
+                        {released} &bull; {runtime}
+                    </p>
+                    <p> {genre} </p>
+                    <p>
+                        <span>⭐</span>
+                        {imdbRating} IMDb Rating
                     </p>
                 </div>
             </header>
-            {selectedMovieId}
+
+            <section>
+                <p>
+                    <em>{plot}</em>
+                </p>
+                <p>
+                    <strong>Starring:</strong> {actors}
+                </p>
+                <p>
+                    <strong>Directed by:</strong> {director}
+                </p>
+            </section>
         </div>
     );
 }
