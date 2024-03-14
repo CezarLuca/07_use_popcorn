@@ -230,6 +230,7 @@ function Movie({ movie, onMovieClick }) {
 
 function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
     const [movie, setMovie] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         Title: title,
@@ -260,12 +261,14 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
     useEffect(
         function () {
             async function getMovieDetails() {
+                setIsLoading(true);
                 const res = await fetch(
                     `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`
                 );
                 const data = await res.json();
                 setMovie(data);
-                console.log(data);
+                // console.log(data);
+                setIsLoading(false);
             }
             getMovieDetails();
         },
@@ -273,40 +276,46 @@ function MovieDetails({ selectedMovieId, onCloseMovieDetails }) {
     );
     return (
         <div className="details">
-            <header>
-                <button
-                    className="btn-black"
-                    onClick={() => onCloseMovieDetails()}
-                >
-                    &larr;
-                </button>
-                <img src={poster} alt={`${title} poster`} />
-                <div className="details-overview">
-                    <h2>{title}</h2>
-                    <p>
-                        <span>🗓</span>
-                        {released} &bull; {runtime}
-                    </p>
-                    <p> {genre} </p>
-                    <p>
-                        <span>⭐</span>
-                        {imdbRating} IMDb Rating
-                    </p>
-                </div>
-            </header>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <header>
+                        <button
+                            className="btn-black"
+                            onClick={() => onCloseMovieDetails()}
+                        >
+                            &larr;
+                        </button>
+                        <img src={poster} alt={`${title} poster`} />
+                        <div className="details-overview">
+                            <h2>{title}</h2>
+                            <p>
+                                <span>🗓</span>
+                                {released} &bull; {runtime}
+                            </p>
+                            <p> {genre} </p>
+                            <p>
+                                <span>⭐</span>
+                                {imdbRating} IMDb Rating
+                            </p>
+                        </div>
+                    </header>
 
-            <section>
-                <StarRating maxRating={10} size={"24px"} />
-                <p>
-                    <em>{plot}</em>
-                </p>
-                <p>
-                    <strong>Starring:</strong> {actors}
-                </p>
-                <p>
-                    <strong>Directed by:</strong> {director}
-                </p>
-            </section>
+                    <section>
+                        <StarRating maxRating={10} size={"24px"} />
+                        <p>
+                            <em>{plot}</em>
+                        </p>
+                        <p>
+                            <strong>Starring:</strong> {actors}
+                        </p>
+                        <p>
+                            <strong>Directed by:</strong> {director}
+                        </p>
+                    </section>
+                </>
+            )}
         </div>
     );
 }
