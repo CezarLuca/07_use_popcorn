@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import KEY from "./KEY";
-import StarRating from "./StarRating";
+import KEY from "./components/KEY";
+import StarRating from "./components/StarRating";
 
 const tempWatchedData = [
     {
