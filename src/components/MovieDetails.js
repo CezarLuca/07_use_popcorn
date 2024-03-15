@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
-import { KEY } from "./KEY";
+import KEY from "./KEY";
 
 export default function MovieDetails({
     selectedMovieId,
