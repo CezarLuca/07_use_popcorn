@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import KEY from "./KEY";
+import KEY from "../KEY";
 
 // const tempMovieData = [
 //     {
@@ -7,6 +7,18 @@ import KEY from "./KEY";
 //         Title: "Inception",
 //         Year: "2010",
 //         Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+//     },
+//     {
+//         imdbID: "tt0133093",
+//         Title: "The Matrix",
+//         Year: "1999",
+//         Poster: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+//     },
+//     {
+//         imdbID: "tt6751668",
+//         Title: "Parasite",
+//         Year: "2019",
+//         Poster: "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
 //     },
 // ];
 
@@ -37,83 +49,43 @@ const average = (arr) =>
 export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
+    const [query, setQuery] = useState("interstellar");
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-    // const tempQuery = "interstellar";
-    const [query, setQuery] = useState("");
 
-    // useEffect(() => {
-    //     console.log("After the Initial Render");
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log("After Every Render");
-    // });
-
-    // useEffect(() => {
-    //     console.log("D");
-    // }, [query]);
-
-    // console.log("During Render");
+    // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data.Search))
+    //     .catch((error) => console.log("Error:", error));
 
     useEffect(() => {
         async function fetchMovies() {
-            try {
-                setError("");
-                setIsLoading(true);
-                const res = await fetch(
-                    `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-                    // `https://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`
-                );
-
-                if (!res.ok) {
-                    throw new Error(
-                        "Something went wrong with fetching the movies!"
-                    );
-                }
-
-                const data = await res.json();
-
-                if (data.Response === "False") {
-                    throw new Error(data.Error);
-                }
-
-                setMovies(data.Search);
-                // console.log(data.Search);
-                // setIsLoading(false);
-            } catch (error) {
-                console.error(error.message);
-                setError(error.message);
-                // setIsLoading(false);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        if (query.length < 2) {
-            setMovies([]);
-            setError("");
+            setIsLoading(true);
+            const res = await fetch(
+                `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            );
+            const data = await res.json();
+            setMovies(data.Search);
+            console.log(data.Search);
             setIsLoading(false);
-            return;
         }
-
+        // fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+        //     .then((res) => res.json())
+        //     .then((data) => setMovies(data.Search))
+        //     .catch((error) => console.log("Error:", error));
+        // setMovies(tempMovieData);
         setWatched(tempWatchedData);
         fetchMovies();
     }, [query]);
-    // }, [tempQuery]);
 
     return (
         <>
             <NavBar>
-                <SearchBar query={query} setQuery={setQuery} />
+                <SearchBar />
                 <SearchResultsCounter movies={movies} />
             </NavBar>
             <Main>
                 <Box>
-                    {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
-                    {error && <ErrorMessage message={error} />}
-                    {isLoading && <Loader />}
-                    {!isLoading && !error && <MovieList movies={movies} />}
+                    {isLoading ? <Loader /> : <MovieList movies={movies} />}
                 </Box>
                 <Box>
                     <Summary watched={watched} />
@@ -126,20 +98,6 @@ export default function App() {
 
 function Loader() {
     return <p className="loader">Loading...</p>;
-}
-
-function ErrorMessage({ message }) {
-    return (
-        <p className="error">
-            <span role="img" aria-label="error">
-                ⛔
-            </span>
-            {message}
-            <span role="img" aria-label="error">
-                ⛔
-            </span>
-        </p>
-    );
 }
 
 function NavBar({ children }) {
@@ -160,8 +118,8 @@ function Logo() {
     );
 }
 
-function SearchBar({ query, setQuery }) {
-    // const [query, setQuery] = useState("");
+function SearchBar() {
+    const [query, setQuery] = useState("");
 
     return (
         <input
@@ -201,6 +159,27 @@ function Box({ children }) {
         </div>
     );
 }
+
+// function WatchedListBox() {
+//     const [watched, setWatched] = useState(tempWatchedData);
+//     const [isOpen2, setIsOpen2] = useState(true);
+//     return (
+//         <div className="box">
+//             <button
+//                 className="btn-toggle"
+//                 onClick={() => setIsOpen2((open) => !open)}
+//             >
+//                 {isOpen2 ? "–" : "+"}
+//             </button>
+//             {isOpen2 && (
+//                 <>
+//                     <Summary watched={watched} />
+//                     <WatchedMoviesList watched={watched} />
+//                 </>
+//             )}
+//         </div>
+//     );
+// }
 
 function MovieList({ movies }) {
     return (
