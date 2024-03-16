@@ -24,19 +24,6 @@ export default function MovieDetails({
         Genre: genre,
     } = movie;
 
-    console.log(
-        title,
-        year,
-        poster,
-        runtime,
-        imdbRating,
-        plot,
-        released,
-        actors,
-        director,
-        genre
-    );
-
     function handleAddToWatched() {
         const newWatchedMovie = {
             imdbID: selectedMovieId,
@@ -48,6 +35,7 @@ export default function MovieDetails({
         };
 
         onAddToWatched(newWatchedMovie);
+        onCloseMovieDetails();
     }
 
     useEffect(
