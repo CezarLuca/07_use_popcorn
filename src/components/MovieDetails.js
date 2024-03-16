@@ -10,6 +10,7 @@ export default function MovieDetails({
 }) {
     const [movie, setMovie] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [userRating, setUserRating] = useState("");
 
     const {
         Title: title,
@@ -83,7 +84,11 @@ export default function MovieDetails({
                     </header>
 
                     <section>
-                        <StarRating maxRating={10} size={"24px"} />
+                        <StarRating
+                            maxRating={10}
+                            size={"24px"}
+                            onSetRating={setUserRating}
+                        />
                         <button
                             className="btn-add"
                             onClick={handleAddToWatched}
