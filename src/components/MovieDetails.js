@@ -33,6 +33,7 @@ export default function MovieDetails({
             poster,
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(" ").at(0)),
+            userRating: userRating ? Number(userRating) : null,
         };
 
         onAddToWatched(newWatchedMovie);
@@ -89,12 +90,14 @@ export default function MovieDetails({
                             size={"24px"}
                             onSetRating={setUserRating}
                         />
-                        <button
-                            className="btn-add"
-                            onClick={handleAddToWatched}
-                        >
-                            + Add to list
-                        </button>
+                        {userRating > 0 && (
+                            <button
+                                className="btn-add"
+                                onClick={handleAddToWatched}
+                            >
+                                + Add to list
+                            </button>
+                        )}
                         <p>
                             <em>{plot}</em>
                         </p>
