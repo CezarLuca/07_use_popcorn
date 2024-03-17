@@ -1,6 +1,15 @@
-const average = (arr) => {
-    if (arr.length === 0) return 0;
-    arr.reduce((acc, cur, arr) => acc + cur / arr.length, 0);
+const average = (array) => {
+    if (array.length === 0) return 0;
+    return array
+        .reduce((accumulator, current) => {
+            const value = Number(current);
+            if (isNaN(value)) {
+                return accumulator;
+            } else {
+                return accumulator + value / array.length;
+            }
+        }, 0)
+        .toFixed(2);
 };
 
 export default function Summary({ watched }) {
