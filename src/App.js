@@ -40,6 +40,7 @@ export default function App() {
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
     const [selectedMovieId, setSelectedMovieId] = useState(null);
+    // const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
 
     function handleMovieClick(movieId) {
         setSelectedMovieId((selectedMovieId) =>
@@ -51,9 +52,9 @@ export default function App() {
         setSelectedMovieId(null);
     }
 
-    function handleAddToWatched(movie) {
-        setWatched((watched) => [...watched, movie]);
-    }
+    // function handleAddToWatched(movie) {
+    //     setWatched((watched) => [...watched, movie]);
+    // }
 
     useEffect(() => {
         async function fetchMovies() {
@@ -119,8 +120,8 @@ export default function App() {
                         <MovieDetails
                             selectedMovieId={selectedMovieId}
                             onCloseMovieDetails={handleCloseMovieDetails}
-                            onAddToWatched={handleAddToWatched}
                             watched={watched}
+                            setWatched={setWatched}
                         />
                     ) : (
                         <>

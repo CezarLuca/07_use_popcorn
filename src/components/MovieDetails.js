@@ -6,7 +6,7 @@ import KEY from "./KEY";
 export default function MovieDetails({
     selectedMovieId,
     onCloseMovieDetails,
-    onAddToWatched,
+    setWatched,
     watched,
 }) {
     const [movie, setMovie] = useState({});
@@ -14,6 +14,10 @@ export default function MovieDetails({
     const [userRating, setUserRating] = useState("");
 
     const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
+
+    // function handleAddToWatched(movie) {
+    //     setWatched((watched) => [...watched, movie]);
+    // }
 
     const {
         Title: title,
@@ -29,7 +33,22 @@ export default function MovieDetails({
     } = movie;
 
     function handleAddToWatched() {
-        if (isWatched) return;
+        if (isWatched) {
+            setWatched(
+                watched.map((movie) => {
+                    if (movie.imdbID === selectedMovieId) {
+                        return {
+                            ...movie,
+                            userRating: userRating ? Number(userRating) : null,
+                        };
+                    } else {
+                        return movie;
+                    }
+                })
+            );
+            onCloseMovieDetails();
+            return;
+        }
 
         const newWatchedMovie = {
             imdbID: selectedMovieId,
@@ -41,7 +60,8 @@ export default function MovieDetails({
             userRating: userRating ? Number(userRating) : null,
         };
 
-        onAddToWatched(newWatchedMovie);
+        // onAddToWatched(newWatchedMovie);
+        setWatched((watched) => [...watched, newWatchedMovie]);
         onCloseMovieDetails();
     }
 
