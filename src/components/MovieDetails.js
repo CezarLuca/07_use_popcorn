@@ -7,10 +7,13 @@ export default function MovieDetails({
     selectedMovieId,
     onCloseMovieDetails,
     onAddToWatched,
+    watched,
 }) {
     const [movie, setMovie] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [userRating, setUserRating] = useState("");
+
+    const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
 
     const {
         Title: title,
@@ -26,6 +29,8 @@ export default function MovieDetails({
     } = movie;
 
     function handleAddToWatched() {
+        if (isWatched) return;
+
         const newWatchedMovie = {
             imdbID: selectedMovieId,
             title,
