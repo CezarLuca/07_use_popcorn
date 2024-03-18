@@ -1,6 +1,26 @@
 export default function WatchedMovie({ movie }) {
     const isValidNumber = (value) => !isNaN(Number(value));
 
+    // let imdbRating, userRating, runtime;
+
+    // if (movie.hasOwnProperty("imdbRating") && isValidNumber(movie.imdbRating)) {
+    //     imdbRating = movie.imdbRating;
+    // } else {
+    //     imdbRating = "Imdb rating N/A";
+    // }
+
+    // if (movie.hasOwnProperty("userRating") && isValidNumber(movie.userRating)) {
+    //     userRating = movie.userRating;
+    // } else {
+    //     userRating = "User rating N/A";
+    // }
+
+    // if (movie.hasOwnProperty("runtime") && isValidNumber(movie.runtime)) {
+    //     runtime = movie.runtime;
+    // } else {
+    //     runtime = "Runtime N/A";
+    // }
+
     const imdbRating =
         movie.hasOwnProperty("imdbRating") && isValidNumber(movie.imdbRating)
             ? movie.imdbRating
