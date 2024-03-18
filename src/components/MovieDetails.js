@@ -93,7 +93,11 @@ export default function MovieDetails({
     useEffect(() => {
         document.title = title
             ? `Movie: ${title.substring(0, 25)}`
-            : "Movie Browser";
+            : "usePopcorn";
+
+        return () => {
+            document.title = "usePopcorn";
+        };
     }, [title]);
 
     return (
