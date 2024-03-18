@@ -14,6 +14,10 @@ export default function MovieDetails({
     const [userRating, setUserRating] = useState("");
 
     const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
+    const selectedMovie = watched.find(
+        (movie) => movie.imdbID === selectedMovieId
+    );
+    const PreviousUserRating = selectedMovie ? selectedMovie.userRating : null;
 
     // function handleAddToWatched(movie) {
     //     setWatched((watched) => [...watched, movie]);
@@ -110,19 +114,30 @@ export default function MovieDetails({
                     </header>
 
                     <section>
-                        <StarRating
-                            maxRating={10}
-                            size={"24px"}
-                            onSetRating={setUserRating}
-                        />
-                        {userRating > 0 && (
-                            <button
-                                className="btn-add"
-                                onClick={handleAddToWatched}
-                            >
-                                + Add to list
-                            </button>
-                        )}
+                        <div className="rating">
+                            {isWatched && (
+                                <>
+                                    <p>
+                                        <strong>You rated this movie </strong>
+                                        {PreviousUserRating || "N/A"}⭐
+                                    </p>
+                                    <p> You can rate it again here: </p>
+                                </>
+                            )}
+                            <StarRating
+                                maxRating={10}
+                                size={"24px"}
+                                onSetRating={setUserRating}
+                            />
+                            {userRating > 0 && (
+                                <button
+                                    className="btn-add"
+                                    onClick={handleAddToWatched}
+                                >
+                                    + Add to list
+                                </button>
+                            )}
+                        </div>
                         <p>
                             <em>{plot}</em>
                         </p>
