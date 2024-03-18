@@ -1,3 +1,17 @@
+// const average = (array) => {
+//     if (array.length === 0) return 0;
+//     return array
+//         .reduce((accumulator, currentVal) => {
+//             const value = Number(currentVal);
+//             if (isNaN(value)) {
+//                 return accumulator;
+//             } else {
+//                 return accumulator + value / array.length;
+//             }
+//         }, 0)
+//         .toFixed(2);
+// };
+
 const average = (array, property) => {
     const values = array
         .map((movie) => movie[property])
@@ -14,6 +28,10 @@ const average = (array, property) => {
 };
 
 export default function Summary({ watched }) {
+    // const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+    // const avgUserRating = average(watched.map((movie) => movie.userRating));
+    // const avgRuntime = average(watched.map((movie) => movie.runtime));
+
     const avgImdbRating = average(watched, "imdbRating");
     const avgUserRating = average(watched, "userRating");
     const avgRuntime = average(watched, "runtime");
