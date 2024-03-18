@@ -89,6 +89,13 @@ export default function MovieDetails({
         },
         [selectedMovieId]
     );
+
+    useEffect(() => {
+        document.title = title
+            ? `Movie: ${title.substring(0, 10)}`
+            : "Movie Browser";
+    }, [title]);
+
     return (
         <div className="details">
             {isLoading ? (
