@@ -6,7 +6,7 @@ import KEY from "./KEY";
 export default function MovieDetails({
     selectedMovieId,
     onCloseMovieDetails,
-    setWatched,
+    onSetWatched,
     watched,
 }) {
     const [movie, setMovie] = useState({});
@@ -14,10 +14,14 @@ export default function MovieDetails({
     const [userRating, setUserRating] = useState("");
 
     const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
-    const selectedMovie = watched.find(
+    // const selectedMovie = watched.find(
+    //     (movie) => movie.imdbID === selectedMovieId
+    // );
+    // const PreviousUserRating = selectedMovie ? selectedMovie.userRating : null;
+
+    const PreviousUserRating = watched.find(
         (movie) => movie.imdbID === selectedMovieId
-    );
-    const PreviousUserRating = selectedMovie ? selectedMovie.userRating : null;
+    )?.userRating;
 
     // function handleAddToWatched(movie) {
     //     setWatched((watched) => [...watched, movie]);
@@ -38,7 +42,7 @@ export default function MovieDetails({
 
     function handleAddToWatched() {
         if (isWatched) {
-            setWatched(
+            onSetWatched(
                 watched.map((movie) => {
                     if (movie.imdbID === selectedMovieId) {
                         return {
@@ -65,7 +69,7 @@ export default function MovieDetails({
         };
 
         // onAddToWatched(newWatchedMovie);
-        setWatched((watched) => [...watched, newWatchedMovie]);
+        onSetWatched((watched) => [...watched, newWatchedMovie]);
         onCloseMovieDetails();
     }
 
@@ -119,7 +123,8 @@ export default function MovieDetails({
                                 <>
                                     <p>
                                         <strong>You rated this movie </strong>
-                                        {PreviousUserRating || "N/A"}⭐
+                                        {PreviousUserRating || "N/A"}
+                                        <span>⭐</span>
                                     </p>
                                     <p> You can rate it again here: </p>
                                 </>

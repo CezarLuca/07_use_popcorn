@@ -1,4 +1,4 @@
-export default function WatchedMovie({ movie }) {
+export default function WatchedMovie({ movie, onDeleteFromWatched }) {
     const isValidNumber = (value) => !isNaN(Number(value));
 
     const imdbRating =
@@ -36,6 +36,14 @@ export default function WatchedMovie({ movie }) {
                     <span>⏳</span>
                     <span>{runtime} min</span>
                 </p>
+
+                <button
+                    className="btn-delete"
+                    onClick={() => onDeleteFromWatched(movie.imdbID)}
+                >
+                    {" "}
+                    X{" "}
+                </button>
             </div>
         </li>
     );
