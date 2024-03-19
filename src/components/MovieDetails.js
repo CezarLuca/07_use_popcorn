@@ -93,7 +93,7 @@ export default function MovieDetails({
         const callback = (e) => {
             if (e.key === "Escape") {
                 onCloseMovieDetails();
-                console.log("Escape key pressed");
+                // console.log("Escape key pressed");
             }
         };
 

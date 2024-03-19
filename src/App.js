@@ -92,7 +92,7 @@ export default function App() {
                 setError("");
             } catch (error) {
                 if (error.name === "AbortError") return;
-                console.error(error.message);
+                console.log(error.message);
                 setError(error.message);
             } finally {
                 setIsLoading(false);
@@ -107,6 +107,7 @@ export default function App() {
         }
 
         // setWatched(tempWatchedData);
+        handleCloseMovieDetails();
         fetchMovies();
 
         return () => {
