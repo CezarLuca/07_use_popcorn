@@ -48,12 +48,35 @@ export default function StarRating({
         }
     }
 
+    // function handleRatingMessage() {
+    //     if (messages.length === maxRating) {
+    //         if (hoverRating) {
+    //             return messages[hoverRating - 1];
+    //         } else {
+    //             return messages[rating - 1];
+    //         }
+    //     } else if (hoverRating) {
+    //         return hoverRating;
+    //     } else if (rating) {
+    //         return rating;
+    //     } else {
+    //         return "";
+    //     }
+    // }
     function handleRatingMessage() {
+        // If there are enough messages for each rating, use them
         if (messages.length === maxRating) {
+            // If there's a hover rating, use its corresponding message
+            // Otherwise, use the message for the current rating
             return hoverRating
                 ? messages[hoverRating - 1]
                 : messages[rating - 1];
         }
+
+        // If there's no message for the rating, just return the rating itself
+        // If there's a hover rating, use it
+        // Otherwise, use the current rating
+        // If there's no rating, return an empty string
         return hoverRating || rating || "";
     }
 
@@ -127,3 +150,11 @@ function Star({ onRating, full, onHover, onUnhover, color, size }) {
         </span>
     );
 }
+
+/*
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /52 / 62 / 74 / 86 / 98
+*/

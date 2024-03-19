@@ -14,10 +14,18 @@ export default function MovieDetails({
     const [userRating, setUserRating] = useState("");
 
     const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
+    // const selectedMovie = watched.find(
+    //     (movie) => movie.imdbID === selectedMovieId
+    // );
+    // const PreviousUserRating = selectedMovie ? selectedMovie.userRating : null;
 
     const PreviousUserRating = watched.find(
         (movie) => movie.imdbID === selectedMovieId
     )?.userRating;
+
+    // function handleAddToWatched(movie) {
+    //     setWatched((watched) => [...watched, movie]);
+    // }
 
     const {
         Title: title,
@@ -60,14 +68,32 @@ export default function MovieDetails({
             userRating: userRating ? Number(userRating) : null,
         };
 
+        // onAddToWatched(newWatchedMovie);
         onSetWatched((watched) => [...watched, newWatchedMovie]);
         onCloseMovieDetails();
     }
 
     useEffect(() => {
+        // document.addEventListener("keydown", (e) => {
+        //     if (e.key === "Escape") {
+        //         onCloseMovieDetails();
+        //         console.log("Escape key pressed");
+        //     }
+        // });
+
+        // return () => {
+        //     document.removeEventListener("keydown", (e) => {
+        //         if (e.key === "Escape") {
+        //             onCloseMovieDetails();
+        //             console.log("Escape key pressed");
+        //         }
+        //     });
+        // };
+
         const callback = (e) => {
             if (e.key === "Escape") {
                 onCloseMovieDetails();
+                // console.log("Escape key pressed");
             }
         };
 
@@ -87,6 +113,7 @@ export default function MovieDetails({
                 );
                 const data = await res.json();
                 setMovie(data);
+                // console.log(data);
                 setIsLoading(false);
             }
             getMovieDetails();

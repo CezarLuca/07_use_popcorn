@@ -12,27 +12,6 @@ import MovieList from "./components/MovieList";
 import Summary from "./components/Summary";
 import WatchedMoviesList from "./components/WatchedMoviesList";
 
-// const tempWatchedData = [
-//     {
-//         imdbID: "tt1375666",
-//         Title: "Inception",
-//         Year: "2010",
-//         Poster: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-//         runtime: 148,
-//         imdbRating: 8.8,
-//         userRating: 10,
-//     },
-//     {
-//         imdbID: "tt0088763",
-//         Title: "Back to the Future",
-//         Year: "1985",
-//         Poster: "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-//         runtime: 116,
-//         imdbRating: 8.5,
-//         userRating: 9,
-//     },
-// ];
-
 export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
@@ -40,7 +19,6 @@ export default function App() {
     const [error, setError] = useState("");
     const [query, setQuery] = useState("");
     const [selectedMovieId, setSelectedMovieId] = useState(null);
-    // const isWatched = watched.some((movie) => movie.imdbID === selectedMovieId);
 
     function handleMovieClick(movieId) {
         setSelectedMovieId((selectedMovieId) =>
@@ -51,10 +29,6 @@ export default function App() {
     function handleCloseMovieDetails() {
         setSelectedMovieId(null);
     }
-
-    // function handleAddToWatched(movie) {
-    //     setWatched((watched) => [...watched, movie]);
-    // }
 
     function handleDeleteFromWatched(movieId) {
         setWatched((watched) =>
@@ -87,8 +61,6 @@ export default function App() {
                 }
 
                 setMovies(data.Search);
-                // console.log(data.Search);
-
                 setError("");
             } catch (error) {
                 if (error.name === "AbortError") return;
@@ -106,7 +78,6 @@ export default function App() {
             return;
         }
 
-        // setWatched(tempWatchedData);
         handleCloseMovieDetails();
         fetchMovies();
 
