@@ -63,6 +63,15 @@ export default function App() {
     }
 
     useEffect(() => {
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                handleCloseMovieDetails();
+                console.log("Escape key pressed");
+            }
+        });
+    }, []);
+
+    useEffect(() => {
         const controller = new AbortController();
 
         async function fetchMovies() {
