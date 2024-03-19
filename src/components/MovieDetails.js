@@ -73,6 +73,37 @@ export default function MovieDetails({
         onCloseMovieDetails();
     }
 
+    useEffect(() => {
+        // document.addEventListener("keydown", (e) => {
+        //     if (e.key === "Escape") {
+        //         onCloseMovieDetails();
+        //         console.log("Escape key pressed");
+        //     }
+        // });
+
+        // return () => {
+        //     document.removeEventListener("keydown", (e) => {
+        //         if (e.key === "Escape") {
+        //             onCloseMovieDetails();
+        //             console.log("Escape key pressed");
+        //         }
+        //     });
+        // };
+
+        const callback = (e) => {
+            if (e.key === "Escape") {
+                onCloseMovieDetails();
+                console.log("Escape key pressed");
+            }
+        };
+
+        document.addEventListener("keydown", callback);
+
+        return () => {
+            document.removeEventListener("keydown", callback);
+        };
+    }, [onCloseMovieDetails]);
+
     useEffect(
         function () {
             async function getMovieDetails() {
