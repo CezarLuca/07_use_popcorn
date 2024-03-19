@@ -87,8 +87,11 @@ export default function App() {
                 }
 
                 setMovies(data.Search);
-                console.log(data.Search);
+                // console.log(data.Search);
+
+                setError("");
             } catch (error) {
+                if (error.name === "AbortError") return;
                 console.error(error.message);
                 setError(error.message);
             } finally {
