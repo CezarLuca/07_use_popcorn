@@ -32,11 +32,14 @@ export default function MovieDetails({
         Genre: genre,
     } = movie;
 
-    const [isTop, setIsTop] = useState(imdbRating >= 8.0);
+    // const [isTop, setIsTop] = useState(imdbRating >= 8.0);
+    // console.log(isTop);
+    // useEffect(() => {
+    //     setIsTop(imdbRating >= 8.0);
+    // }, [imdbRating]);
+
+    const isTop = imdbRating >= 8.0;
     console.log(isTop);
-    useEffect(() => {
-        setIsTop(imdbRating >= 8.0);
-    }, [imdbRating]);
 
     function handleAddToWatched() {
         if (isWatched) {
