@@ -41,6 +41,8 @@ export default function MovieDetails({
     const isTop = imdbRating >= 8.0;
     console.log(isTop);
 
+    const [avgRating, setAvgRating] = useState(0);
+
     function handleAddToWatched() {
         if (isWatched) {
             onSetWatched(
@@ -56,6 +58,8 @@ export default function MovieDetails({
                 })
             );
             onCloseMovieDetails();
+            setAvgRating((Number(imdbRating) + Number(userRating)) / 2);
+            alert(avgRating);
             return;
         }
 
@@ -140,6 +144,8 @@ export default function MovieDetails({
                             </p>
                         </div>
                     </header>
+
+                    <p>{avgRating}</p>
 
                     <section>
                         <div className="rating">
