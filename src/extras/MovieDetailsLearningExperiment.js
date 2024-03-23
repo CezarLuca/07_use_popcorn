@@ -32,8 +32,16 @@ export default function MovieDetails({
         Genre: genre,
     } = movie;
 
+    // const [isTop, setIsTop] = useState(imdbRating >= 8.0);
+    // console.log(isTop);
+    // useEffect(() => {
+    //     setIsTop(imdbRating >= 8.0);
+    // }, [imdbRating]);
+
     const isTop = imdbRating >= 8.0;
     console.log(isTop);
+
+    // const [avgRating, setAvgRating] = useState(0);
 
     function handleAddToWatched() {
         if (isWatched) {
@@ -50,6 +58,9 @@ export default function MovieDetails({
                 })
             );
             onCloseMovieDetails();
+            // setAvgRating(Number(imdbRating));
+            // setAvgRating((avgRating) => (avgRating + userRating) / 2);
+            // alert(avgRating);
             return;
         }
 
@@ -134,6 +145,9 @@ export default function MovieDetails({
                             </p>
                         </div>
                     </header>
+
+                    {/* <p>{avgRating}</p> */}
+
                     <section>
                         <div className="rating">
                             {isWatched && (
