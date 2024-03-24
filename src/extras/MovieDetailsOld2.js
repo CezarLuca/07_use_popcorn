@@ -50,6 +50,10 @@ export default function MovieDetails({
                     }
                 })
             );
+            // localStorage.setItem(
+            //     "watched",
+            //     JSON.stringify([...watched, newWatchedMovie])
+            // );
             onCloseMovieDetails();
             return;
         }
@@ -65,8 +69,16 @@ export default function MovieDetails({
         };
 
         onSetWatched((watched) => [...watched, newWatchedMovie]);
+        // localStorage.setItem(
+        //     "watched",
+        //     JSON.stringify([...watched, newWatchedMovie])
+        // );
         onCloseMovieDetails();
     }
+
+    // useEffect(() => {
+    //     localStorage.setItem("watched", JSON.stringify(watched));
+    // }, [watched]);
 
     useEffect(() => {
         const callback = (e) => {
