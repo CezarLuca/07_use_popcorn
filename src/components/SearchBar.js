@@ -1,10 +1,18 @@
 import { useEffect, useRef } from "react";
 
 export default function SearchBar({ query, setQuery }) {
+    const timerCapitalised = useRef(null);
+
     const handleChange = (e) => {
         const value = e.target.value;
         const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
-        setQuery(capitalizedValue);
+
+        if (!timerCapitalised.current) {
+            setQuery(capitalizedValue);
+            timerCapitalised.current = setTimeout(() => {
+                timerCapitalised.current = null;
+            }, 2000);
+        }
     };
 
     const inputElement = useRef(null);
