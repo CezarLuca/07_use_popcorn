@@ -12,6 +12,8 @@ export default function SearchBar({ query, setQuery }) {
             timerCapitalised.current = setTimeout(() => {
                 timerCapitalised.current = null;
             }, 2000);
+        } else {
+            setQuery(value);
         }
     };
 
