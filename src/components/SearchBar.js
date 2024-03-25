@@ -12,11 +12,15 @@ export default function SearchBar({ query, setQuery }) {
     useEffect(() => {
         // console.log(inputElement.current);
         const callback = (e) => {
-            if (e.key === "Enter") {
+            if (
+                e.key === "Enter" &&
+                document.activeElement !== inputElement.current
+            ) {
                 inputElement.current.focus();
-            } else if (e.key === "Escape") {
                 setQuery("");
+            } else if (e.key === "Escape") {
                 inputElement.current.blur();
+                setQuery("");
             }
         };
         document.addEventListener("keydown", callback);
@@ -24,7 +28,7 @@ export default function SearchBar({ query, setQuery }) {
         return () => {
             document.removeEventListener("keydown", callback);
         };
-    }, [setQuery]);
+    }, [query, setQuery]);
 
     return (
         <input
