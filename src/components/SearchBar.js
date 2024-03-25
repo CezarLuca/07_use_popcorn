@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function SearchBar({ query, setQuery }) {
     const handleChange = (e) => {
@@ -8,6 +8,22 @@ export default function SearchBar({ query, setQuery }) {
     };
 
     const inputElement = useRef(null);
+
+    useEffect(() => {
+        // console.log(inputElement.current);
+        const callback = (e) => {
+            if (e.key === "Enter") {
+                // setQuery("");
+                inputElement.current.focus();
+            }
+        };
+        document.addEventListener("keydown", callback);
+        // inputElement.current.focus();
+        return () => {
+            document.removeEventListener("keydown", callback);
+        };
+    }, []);
+
     return (
         <input
             className="search"
