@@ -13,8 +13,10 @@ export default function SearchBar({ query, setQuery }) {
         // console.log(inputElement.current);
         const callback = (e) => {
             if (e.key === "Enter") {
-                // setQuery("");
                 inputElement.current.focus();
+            } else if (e.key === "Escape") {
+                setQuery("");
+                inputElement.current.blur();
             }
         };
         document.addEventListener("keydown", callback);
@@ -22,7 +24,7 @@ export default function SearchBar({ query, setQuery }) {
         return () => {
             document.removeEventListener("keydown", callback);
         };
-    }, []);
+    }, [setQuery]);
 
     return (
         <input
