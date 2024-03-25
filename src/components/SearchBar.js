@@ -1,20 +1,22 @@
 import { useEffect, useRef } from "react";
 
 export default function SearchBar({ query, setQuery }) {
-    const timerCapitalised = useRef(null);
+    // const timerCapitalised = useRef(null);
 
     const handleChange = (e) => {
         const value = e.target.value;
-        const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+        setQuery(value);
 
-        if (!timerCapitalised.current) {
-            setQuery(capitalizedValue);
-            timerCapitalised.current = setTimeout(() => {
-                timerCapitalised.current = null;
-            }, 2000);
-        } else {
-            setQuery(value);
-        }
+        // const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+
+        // if (!timerCapitalised.current) {
+        //     setQuery(capitalizedValue);
+        //     timerCapitalised.current = setTimeout(() => {
+        //         timerCapitalised.current = null;
+        //     }, 2000);
+        // } else {
+        //     setQuery(value);
+        // }
     };
 
     const inputElement = useRef(null);
