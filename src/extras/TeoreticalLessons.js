@@ -58,4 +58,10 @@
     call other hooks. Custom Hooks are a mechanism to extract component 
     logic into reusable functions. They allow you to reuse stateful logic 
     between components without changing the component hierarchy.
+
+    2. Custom Hooks allow us to reuse non-visual logic between multiple
+    components.
+
+    3. One custom hook should not have one purpose, to make it reusable 
+    and portable (even across multiple projects).
 */
