@@ -48,3 +48,14 @@
             - Don't call hooks from regular JavaScript functions.
         3. These rules are automatically enforced by the React ESLint plugin
 */
+
+// ----------------------------------------------------------------------------
+// 169 - Custom Hooks in React - Introduction
+
+/*
+    1. Custom Hooks are a way to reuse stateful logic between components. 
+    They are JavaScript functions whose names start with "use" and may 
+    call other hooks. Custom Hooks are a mechanism to extract component 
+    logic into reusable functions. They allow you to reuse stateful logic 
+    between components without changing the component hierarchy.
+*/
