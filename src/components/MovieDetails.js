@@ -53,7 +53,8 @@ export default function MovieDetails({
                         return {
                             ...movie,
                             userRating: userRating ? Number(userRating) : null,
-                            countRatingDecisions: (countRef.current += 1),
+                            countRatingDecisions:
+                                movie.countRatingDecisions + countRef.current,
                         };
                     } else {
                         return movie;
