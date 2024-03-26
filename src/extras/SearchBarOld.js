@@ -1,14 +1,28 @@
 import { useEffect, useRef } from "react";
 
 export default function SearchBar({ query, setQuery }) {
+    // const timerCapitalised = useRef(null);
+
     const handleChange = (e) => {
         const value = e.target.value;
         setQuery(value);
+
+        // const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+
+        // if (!timerCapitalised.current) {
+        //     setQuery(capitalizedValue);
+        //     timerCapitalised.current = setTimeout(() => {
+        //         timerCapitalised.current = null;
+        //     }, 2000);
+        // } else {
+        //     setQuery(value);
+        // }
     };
 
     const inputElement = useRef(null);
 
     useEffect(() => {
+        // console.log(inputElement.current);
         const callback = (e) => {
             if (
                 e.key === "Enter" &&
@@ -22,6 +36,7 @@ export default function SearchBar({ query, setQuery }) {
             }
         };
         document.addEventListener("keydown", callback);
+        // inputElement.current.focus();
         return () => {
             document.removeEventListener("keydown", callback);
         };
