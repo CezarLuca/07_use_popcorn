@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import KEY from "./KEY";
 
-export function useMovies(query, handleCloseMovieDetails) {
+export function useMovies(query, callback) {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -48,13 +48,14 @@ export function useMovies(query, handleCloseMovieDetails) {
             return;
         }
 
-        handleCloseMovieDetails();
+        // callback?.();
+        // handleCloseMovieDetails();
         fetchMovies();
 
         return () => {
             controller.abort();
         };
-    }, [query, handleCloseMovieDetails]);
+    }, [query]);
 
     return { movies, isLoading, error };
 }
