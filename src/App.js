@@ -11,11 +11,12 @@ import MovieDetails from "./components/MovieDetails";
 import MovieList from "./components/MovieList";
 import Summary from "./components/Summary";
 import WatchedMoviesList from "./components/WatchedMoviesList";
+import { useMovies } from "./components/useMovies";
 
 export default function App() {
-    const [movies, setMovies] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    // const [movies, setMovies] = useState([]);
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [error, setError] = useState("");
     const [query, setQuery] = useState("");
     const [selectedMovieId, setSelectedMovieId] = useState(null);
     // const [watched, setWatched] = useState([]);
@@ -45,6 +46,8 @@ export default function App() {
     useEffect(() => {
         localStorage.setItem("watched", JSON.stringify(watched));
     }, [watched]);
+
+    useMovies(query, handleCloseMovieDetails);
 
     // useEffect(() => {
     //     const controller = new AbortController();

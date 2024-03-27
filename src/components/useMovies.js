@@ -1,4 +1,11 @@
-export function useMovies() {
+import { useEffect, useState } from "react";
+import KEY from "./KEY";
+
+export function useMovies(query, handleCloseMovieDetails) {
+    const [movies, setMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+
     useEffect(() => {
         const controller = new AbortController();
 
@@ -47,5 +54,5 @@ export function useMovies() {
         return () => {
             controller.abort();
         };
-    }, [query]);
+    }, [query, handleCloseMovieDetails]);
 }
