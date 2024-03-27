@@ -55,4 +55,6 @@ export function useMovies(query, handleCloseMovieDetails) {
             controller.abort();
         };
     }, [query, handleCloseMovieDetails]);
+
+    return { movies, isLoading, error };
 }

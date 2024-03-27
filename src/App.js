@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import KEY from "./components/KEY";
+// import KEY from "./components/KEY";
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
 import Box from "./components/Box";
@@ -24,6 +24,11 @@ export default function App() {
         const storedWatched = localStorage.getItem("watched");
         return storedWatched ? JSON.parse(storedWatched) : [];
     });
+
+    const { movies, isLoading, error } = useMovies(
+        query,
+        handleCloseMovieDetails
+    );
 
     function handleMovieClick(movieId) {
         setSelectedMovieId((selectedMovieId) =>
