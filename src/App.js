@@ -46,55 +46,55 @@ export default function App() {
         localStorage.setItem("watched", JSON.stringify(watched));
     }, [watched]);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    // useEffect(() => {
+    //     const controller = new AbortController();
 
-        async function fetchMovies() {
-            try {
-                setError("");
-                setIsLoading(true);
-                const res = await fetch(
-                    `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-                    { signal: controller.signal }
-                );
+    //     async function fetchMovies() {
+    //         try {
+    //             setError("");
+    //             setIsLoading(true);
+    //             const res = await fetch(
+    //                 `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+    //                 { signal: controller.signal }
+    //             );
 
-                if (!res.ok) {
-                    throw new Error(
-                        "Something went wrong with fetching the movies!"
-                    );
-                }
+    //             if (!res.ok) {
+    //                 throw new Error(
+    //                     "Something went wrong with fetching the movies!"
+    //                 );
+    //             }
 
-                const data = await res.json();
+    //             const data = await res.json();
 
-                if (data.Response === "False") {
-                    throw new Error(data.Error);
-                }
+    //             if (data.Response === "False") {
+    //                 throw new Error(data.Error);
+    //             }
 
-                setMovies(data.Search);
-                setError("");
-            } catch (error) {
-                if (error.name === "AbortError") return;
-                console.log(error.message);
-                setError(error.message);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    //             setMovies(data.Search);
+    //             setError("");
+    //         } catch (error) {
+    //             if (error.name === "AbortError") return;
+    //             console.log(error.message);
+    //             setError(error.message);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
 
-        if (query.length < 2) {
-            setMovies([]);
-            setError("");
-            setIsLoading(false);
-            return;
-        }
+    //     if (query.length < 2) {
+    //         setMovies([]);
+    //         setError("");
+    //         setIsLoading(false);
+    //         return;
+    //     }
 
-        handleCloseMovieDetails();
-        fetchMovies();
+    //     handleCloseMovieDetails();
+    //     fetchMovies();
 
-        return () => {
-            controller.abort();
-        };
-    }, [query]);
+    //     return () => {
+    //         controller.abort();
+    //     };
+    // }, [query]);
 
     return (
         <>

@@ -62,6 +62,8 @@
     2. Custom Hooks allow us to reuse non-visual logic between multiple
     components.
 
-    3. One custom hook should not have one purpose, to make it reusable 
+    3. One custom hook should have one purpose, to make it reusable 
     and portable (even across multiple projects).
+
+    4. Rules of React Hooks apply to custom hooks as well.
 */
