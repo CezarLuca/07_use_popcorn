@@ -19,6 +19,7 @@ export default function MovieDetails({
     useEffect(() => {
         if (userRating !== "") {
             countRef.current++;
+            // console.log(countRef.current);
         }
     }, [userRating]);
 
@@ -40,6 +41,9 @@ export default function MovieDetails({
         Director: director,
         Genre: genre,
     } = movie;
+
+    // const isTop = imdbRating >= 8.0;
+    // console.log(isTop);
 
     function handleAddToWatched() {
         // If the movie is already in the watched list, update the user rating
@@ -76,6 +80,20 @@ export default function MovieDetails({
         onSetWatched((watched) => [...watched, newWatchedMovie]);
         onCloseMovieDetails();
     }
+
+    // useEffect(() => {
+    //     const callback = (e) => {
+    //         if (e.key === "Escape") {
+    //             onCloseMovieDetails();
+    //         }
+    //     };
+
+    //     document.addEventListener("keydown", callback);
+
+    //     return () => {
+    //         document.removeEventListener("keydown", callback);
+    //     };
+    // }, [onCloseMovieDetails]);
 
     useKey("Escape", onCloseMovieDetails);
 
