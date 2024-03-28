@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
-export default function SearchBar({ query, setQuery }) {
+export default function SearchBar({ query, onSetQuery }) {
     const handleChange = (e) => {
         const value = e.target.value;
-        setQuery(value);
+        onSetQuery(value);
     };
 
     const inputElement = useRef(null);
@@ -15,17 +15,17 @@ export default function SearchBar({ query, setQuery }) {
                 document.activeElement !== inputElement.current
             ) {
                 inputElement.current.focus();
-                setQuery("");
+                onSetQuery("");
             } else if (e.key === "Escape") {
                 inputElement.current.blur();
-                setQuery("");
+                onSetQuery("");
             }
         };
         document.addEventListener("keydown", callback);
         return () => {
             document.removeEventListener("keydown", callback);
         };
-    }, [query, setQuery]);
+    }, [query, onSetQuery]);
 
     return (
         <input

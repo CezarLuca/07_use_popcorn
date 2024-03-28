@@ -1,4 +1,9 @@
-export default function WatchedMovie({ movie, onDeleteFromWatched }) {
+export default function WatchedMovie({
+    movie,
+    query,
+    onDeleteFromWatched,
+    onSetQuery,
+}) {
     const isValidNumber = (value) => !isNaN(Number(value));
 
     const imdbRating =
@@ -13,8 +18,14 @@ export default function WatchedMovie({ movie, onDeleteFromWatched }) {
 
     const runtime =
         movie.hasOwnProperty("runtime") && isValidNumber(movie.runtime)
-            ? `${movie.runtime} min`
+            ? `${movie.runtime}`
             : "N/A";
+
+    function handleTitleClick() {
+        if (query === "") {
+            onSetQuery(movie.title);
+        }
+    }
 
     return (
         <li>
@@ -22,7 +33,7 @@ export default function WatchedMovie({ movie, onDeleteFromWatched }) {
                 src={movie.poster}
                 alt={`${movie.title.substring(0, 10)} poster`}
             />
-            <h3>{movie.title}</h3>
+            <h3 onClick={handleTitleClick}>{movie.title}</h3>
             <div>
                 <p>
                     <span>⭐️</span>

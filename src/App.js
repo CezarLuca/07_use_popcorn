@@ -56,7 +56,7 @@ export default function App() {
     return (
         <>
             <NavBar>
-                <SearchBar query={query} setQuery={setQuery} />
+                <SearchBar query={query} onSetQuery={setQuery} />
                 <SearchResultsCounter movies={movies} />
             </NavBar>
             <Main>
@@ -83,7 +83,9 @@ export default function App() {
                             <Summary watched={watched} />
                             <WatchedMoviesList
                                 watched={watched}
+                                query={query}
                                 onDeleteFromWatched={handleDeleteFromWatched}
+                                onSetQuery={setQuery}
                             />
                         </>
                     )}
