@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
 import Box from "./components/Box";
@@ -11,19 +12,22 @@ import MovieList from "./components/MovieList";
 import Summary from "./components/Summary";
 import WatchedMoviesList from "./components/WatchedMoviesList";
 import { useMovies } from "./components/useMovies";
+import { useLocalStorageState } from "./components/useLocalStorageState";
 
 export default function App() {
     const [query, setQuery] = useState("");
     const [selectedMovieId, setSelectedMovieId] = useState(null);
-    const [watched, setWatched] = useState(() => {
-        const storedWatched = localStorage.getItem("watched");
-        return storedWatched ? JSON.parse(storedWatched) : [];
-    });
+    // const [watched, setWatched] = useState(() => {
+    //     const storedWatched = localStorage.getItem("watched");
+    //     return storedWatched ? JSON.parse(storedWatched) : [];
+    // });
 
     const { movies, isLoading, error } = useMovies(
         query,
         handleCloseMovieDetails
     );
+
+    const [watched, setWatched] = useLocalStorageState("watched", []);
 
     function handleMovieClick(movieId) {
         setSelectedMovieId((selectedMovieId) =>
@@ -43,9 +47,9 @@ export default function App() {
 
     // The Add to Watched handler is in the MovieDetails component
 
-    useEffect(() => {
-        localStorage.setItem("watched", JSON.stringify(watched));
-    }, [watched]);
+    // useEffect(() => {
+    //     localStorage.setItem("watched", JSON.stringify(watched));
+    // }, [watched]);
 
     useMovies(query, handleCloseMovieDetails);
 
