@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useKey } from "./useKey";
 
 export default function SearchBar({ query, onSetQuery }) {
     const handleChange = (e) => {
@@ -18,7 +19,7 @@ export default function SearchBar({ query, onSetQuery }) {
                 onSetQuery("");
             } else if (e.key === "Escape") {
                 inputElement.current.blur();
-                onSetQuery("");
+                // onSetQuery("");
             }
         };
         document.addEventListener("keydown", callback);

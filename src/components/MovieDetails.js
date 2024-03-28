@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
 import KEY from "./KEY";
+import { useKey } from "./useKey";
 
 export default function MovieDetails({
     selectedMovieId,
@@ -18,7 +19,7 @@ export default function MovieDetails({
     useEffect(() => {
         if (userRating !== "") {
             countRef.current++;
-            console.log(countRef.current);
+            // console.log(countRef.current);
         }
     }, [userRating]);
 
@@ -41,8 +42,8 @@ export default function MovieDetails({
         Genre: genre,
     } = movie;
 
-    const isTop = imdbRating >= 8.0;
-    console.log(isTop);
+    // const isTop = imdbRating >= 8.0;
+    // console.log(isTop);
 
     function handleAddToWatched() {
         // If the movie is already in the watched list, update the user rating
@@ -80,19 +81,21 @@ export default function MovieDetails({
         onCloseMovieDetails();
     }
 
-    useEffect(() => {
-        const callback = (e) => {
-            if (e.key === "Escape") {
-                onCloseMovieDetails();
-            }
-        };
+    // useEffect(() => {
+    //     const callback = (e) => {
+    //         if (e.key === "Escape") {
+    //             onCloseMovieDetails();
+    //         }
+    //     };
 
-        document.addEventListener("keydown", callback);
+    //     document.addEventListener("keydown", callback);
 
-        return () => {
-            document.removeEventListener("keydown", callback);
-        };
-    }, [onCloseMovieDetails]);
+    //     return () => {
+    //         document.removeEventListener("keydown", callback);
+    //     };
+    // }, [onCloseMovieDetails]);
+
+    useKey("Escape", onCloseMovieDetails);
 
     useEffect(
         function () {
