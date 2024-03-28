@@ -23,6 +23,25 @@ export default function SearchBar({ query, onSetQuery }) {
         }
     });
 
+    // useEffect(() => {
+    //     const callback = (e) => {
+    //         if (
+    //             e.key === "Enter" &&
+    //             document.activeElement !== inputElement.current
+    //         ) {
+    //             inputElement.current.focus();
+    //             onSetQuery("");
+    //         } else if (e.key === "Escape") {
+    //             inputElement.current.blur();
+    //             // onSetQuery("");
+    //         }
+    //     };
+    //     document.addEventListener("keydown", callback);
+    //     return () => {
+    //         document.removeEventListener("keydown", callback);
+    //     };
+    // }, [query, onSetQuery]);
+
     return (
         <input
             className="search"
