@@ -32,8 +32,15 @@ export default function WatchedMovie({
             <img
                 src={movie.poster}
                 alt={`${movie.title.substring(0, 10)} poster`}
+                onClick={handleTitleClick}
+                className={query ? "" : "clickable-title"}
             />
-            <h3 onClick={handleTitleClick}>{movie.title}</h3>
+            <h3
+                onClick={handleTitleClick}
+                className={query ? "" : "clickable-title"}
+            >
+                {movie.title}
+            </h3>
             <div>
                 <p>
                     <span>⭐️</span>
